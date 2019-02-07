@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { ticketsReorder, setMode, updateTickets, updateColumns } from '../redux/actions'
-//import { sortByStatus } from '../helpers/sortByStatus'
 import Form from './Form'
 import Column from './Column'
 import { DragDropContext } from 'react-beautiful-dnd'
@@ -100,10 +99,10 @@ class Home extends Component {
   }
 
   updateTickets = () => {
-    const { tickets, updateTickets, setMode, columns, newTicketsContainer, updateColumns } = this.props
+    const { tickets, updateTickets, setMode, selectedMode, columns, newTicketsContainer, updateColumns } = this.props
     const { ticket } = this.state
-    console.log(ticket)
-    if(setMode === 'create'){
+    if(selectedMode === 'create'){
+      
     const length = Object.keys(tickets).length + 1
     ticket.id = `ticket-${length}`
     ticket.ctreatedAt = new Date()
@@ -122,6 +121,10 @@ class Home extends Component {
         ticketIds:newTicketIds
       }
     })
+
+    this.setState({ticket:{}})
+
+    setMode('')
     return
   }
   ticket.udatedAt = new Date()
@@ -130,6 +133,7 @@ class Home extends Component {
     [ticket.id]:ticket
   })
 
+  this.setState({ticket:{}})
     setMode('')
   }
 
@@ -147,6 +151,7 @@ class Home extends Component {
 
   render() {
     const { columnOrder, columns, tickets, selectedMode, setMode } = this.props
+    
     const { ticket } = this.state
     const createTicketModal = (<form>
       <div className="form-row">
