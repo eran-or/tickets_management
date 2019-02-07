@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './components/Home'
 
 const AppRouter = (props) => (
-  // <Router basename="/open-weather/">
-  <Router>
+  <Router basename="/tickets_management/">
+  {/* <Router> */}
     <div>
       <Switch>
         <Route path="/" component={Home} exact={true} />
