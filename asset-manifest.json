@@ -1,7 +1,7 @@
 {
   "main.css": "/tickets_management/static/css/main.96d5def0.chunk.css",
-  "main.js": "/tickets_management/static/js/main.dfebb171.chunk.js",
-  "main.js.map": "/tickets_management/static/js/main.dfebb171.chunk.js.map",
+  "main.js": "/tickets_management/static/js/main.f3735ed5.chunk.js",
+  "main.js.map": "/tickets_management/static/js/main.f3735ed5.chunk.js.map",
   "static/css/1.ac612994.chunk.css": "/tickets_management/static/css/1.ac612994.chunk.css",
   "static/js/1.16f4f90e.chunk.js": "/tickets_management/static/js/1.16f4f90e.chunk.js",
   "static/js/1.16f4f90e.chunk.js.map": "/tickets_management/static/js/1.16f4f90e.chunk.js.map",
@@ -10,6 +10,6 @@
   "static/css/1.ac612994.chunk.css.map": "/tickets_management/static/css/1.ac612994.chunk.css.map",
   "static/css/main.96d5def0.chunk.css.map": "/tickets_management/static/css/main.96d5def0.chunk.css.map",
   "index.html": "/tickets_management/index.html",
-  "precache-manifest.747e8d795860ed2e03cb538631dd1b68.js": "/tickets_management/precache-manifest.747e8d795860ed2e03cb538631dd1b68.js",
+  "precache-manifest.14033325be34340219496e7755bc586e.js": "/tickets_management/precache-manifest.14033325be34340219496e7755bc586e.js",
   "service-worker.js": "/tickets_management/service-worker.js"
 }
