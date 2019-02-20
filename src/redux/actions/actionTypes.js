@@ -1,4 +1,0 @@
-export const TICKETS_REORDER = 'TICKETS_REORDER'
-export const SET_MODE = 'SET_MODE'
-export const UPDATE_TICKETS = 'UPDATE_TICKETS' 
-export const UPDATE_COLUMNS = 'UPDATE_COLUMNS'
