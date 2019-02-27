@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import { connect } from 'react-redux'
 import { ticketsReorder, setMode, updateTickets, updateColumns } from '../redux/actions'
 //import { sortByStatus } from '../helpers/sortByStatus'
@@ -7,6 +7,32 @@ import Column from './Column'
 import { DragDropContext } from 'react-beautiful-dnd'
 import Modal from './Modal'
 import { Input, FormGroup } from 'reactstrap';
+
+
+class DraggbleWrapper extends PureComponent {
+  render() {
+    const {onDragEnd, onDragStart, searchText, columnOrder, columns, tickets, handleEdit} = this.props
+    return (
+      <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
+            {columnOrder.map(columnId => {
+              const column = columns[columnId];
+              //const { searchText } = this.state
+              const list = column.ticketIds.reduce((acc, ticketId) => {
+                const textInSummery = tickets[ticketId].summery.toLowerCase().includes(searchText.toLowerCase())
+                const textInDescription = tickets[ticketId].description.toLowerCase().includes(searchText.toLowerCase())
+                if (searchText === '' || textInSummery || textInDescription) {
+                  acc.push(tickets[ticketId])
+                }
+                return acc
+              }, [])
+              return <Column key={column.id} column={column} tickets={list} handleEdit={handleEdit} />;
+            })}
+          </DragDropContext>
+    )
+  }
+}
+
+
 
 class Home extends Component {
   state = {
@@ -102,7 +128,6 @@ class Home extends Component {
   updateTickets = () => {
     const { tickets, updateTickets, setMode, columns, newTicketsContainer, updateColumns } = this.props
     const { ticket } = this.state
-    console.log(ticket)
     if(setMode === 'create'){
     const length = Object.keys(tickets).length + 1
     ticket.id = `ticket-${length}`
@@ -147,7 +172,7 @@ class Home extends Component {
 
   render() {
     const { columnOrder, columns, tickets, selectedMode, setMode } = this.props
-    const { ticket } = this.state
+    const { ticket, searchText } = this.state
     const createTicketModal = (<form>
       <div className="form-row">
         <label className="col">
@@ -190,21 +215,7 @@ class Home extends Component {
           <Form handleSearch={this.handleSearch} handleCreate={this.handleCreate} />
         </div>
         <div className="d-flex justify-content-around">
-          <DragDropContext onDragEnd={this.onDragEnd} onDragStart={this.onDragStart}>
-            {columnOrder.map(columnId => {
-              const column = columns[columnId];
-              const { searchText } = this.state
-              const list = column.ticketIds.reduce((acc, ticketId) => {
-                const textInSummery = tickets[ticketId].summery.toLowerCase().includes(searchText.toLowerCase())
-                const textInDescription = tickets[ticketId].description.toLowerCase().includes(searchText.toLowerCase())
-                if (searchText === '' || textInSummery || textInDescription) {
-                  acc.push(tickets[ticketId])
-                }
-                return acc
-              }, [])
-              return <Column key={column.id} column={column} tickets={list} handleEdit={this.handleEdit} />;
-            })}
-          </DragDropContext>
+          <DraggbleWrapper handleEdit={this.handleEdit} columnOrder={columnOrder} columns={columns} tickets={tickets} searchText={searchText} onDragEnd={this.onDragEnd} onDragStart={this.onDragStart} />
         </div>
         <Modal isOpen={selectedMode} toggle={() => setMode("")} footer={{ action: this.updateTickets, actionText: "OK" }}>
         {createTicketModal}
